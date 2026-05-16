@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kormako — Future Ideas. Digital Power.</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Kormako is a modern digital media and personal brand platform focused on AI, technology, YouTube, news, startups, and portfolio." />
+  <meta name="keywords" content="Kormako, AI, technology, YouTube, digital media, startup, portfolio, blog" />
+  <meta name="author" content="Kormako" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Kormako — Future Ideas. Digital Power." />
+  <meta property="og:description" content="A premium digital media platform for tech, AI, and creative minds." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kormako.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kormako — Future Ideas. Digital Power." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════ LOADING SCREEN ═══════════ -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">K</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <p class="loader-text">Initializing Kormako...</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ CUSTOM CURSOR ═══════════ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo">
+        <span class="logo-k">K</span><span class="logo-text">ormako</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#blog" class="nav-link">Blog</a></li>
+        <li><a href="#videos" class="nav-link">Videos</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Dark/Light Toggle -->
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+          <svg id="sunIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <!-- Hamburger -->
+        <button id="hamburger" class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div id="mobileNav" class="mobile-nav">
+    <button id="closeNav" class="close-nav" aria-label="Close menu">✕</button>
+    <ul>
+      <li><a href="#home" class="mob-link">Home</a></li>
+      <li><a href="#about" class="mob-link">About</a></li>
+      <li><a href="#blog" class="mob-link">Blog</a></li>
+      <li><a href="#videos" class="mob-link">Videos</a></li>
+      <li><a href="#portfolio" class="mob-link">Portfolio</a></li>
+      <li><a href="#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ HERO SECTION ═══════════ -->
+  <section id="home" class="hero">
+    <!-- Particle canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Neon orbs background -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-content reveal">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-Powered Digital Media Platform
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line" data-text="Kormako">Kormako</span>
+      </h1>
+      <p class="hero-tagline">Future Ideas. <span class="gradient-text">Digital Power.</span></p>
+      <p class="hero-sub">Explore cutting-edge technology, AI insights, startup stories,<br class="hidden-mobile" /> and creative portfolios crafted for the next generation.</p>
+      <div class="hero-cta">
+        <a href="#blog" class="btn-primary">Read Updates</a>
+        <a href="#videos" class="btn-outline">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+          Watch Videos
+        </a>
+      </div>
+      <!-- Scroll hint -->
+      <div class="scroll-hint">
+        <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+        <span>Scroll to explore</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ABOUT SECTION ═══════════ -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-label reveal">About Kormako</div>
+      <h2 class="section-title reveal">Where <span class="gradient-text">Technology</span><br />Meets Creativity</h2>
+
+      <div class="about-grid">
+        <!-- Profile Card -->
+        <div class="glass-card about-card reveal">
+          <div class="about-avatar">
+            <div class="avatar-ring"></div>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Kormako founder" />
+          </div>
+          <h3 class="about-name">Alex Kormako</h3>
+          <p class="about-role">Digital Creator · AI Enthusiast · Founder</p>
+          <p class="about-bio">
+            Building the future one byte at a time. I cover the intersection of artificial intelligence, emerging technology, and startup culture — helping entrepreneurs and curious minds navigate the digital frontier.
+          </p>
+          <!-- Social Buttons -->
+          <div class="social-btns">
+            <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener" class="social-btn youtube" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="social-btn twitter" aria-label="X / Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-btn instagram" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats + Info -->
+        <div class="about-info">
+          <div class="about-stats reveal">
+            <div class="stat-item glass-card">
+              <div class="stat-num" data-target="48">0</div>
+              <div class="stat-label">K Followers</div>
+            </div>
+            <div class="stat-item glass-card">
+              <div class="stat-num" data-target="120">0</div>
+              <div class="stat-label">Videos</div>
+            </div>
+            <div class="stat-item glass-card">
+              <div class="stat-num" data-target="85">0</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item glass-card">
+              <div class="stat-num" data-target="210">0</div>
+              <div class="stat-label">Articles</div>
+            </div>
+          </div>
+
+          <div class="skills-grid reveal">
+            <div class="skill-tag"><span class="skill-dot purple"></span>Artificial Intelligence</div>
+            <div class="skill-tag"><span class="skill-dot blue"></span>Machine Learning</div>
+            <div class="skill-tag"><span class="skill-dot cyan"></span>Web Development</div>
+            <div class="skill-tag"><span class="skill-dot purple"></span>Content Creation</div>
+            <div class="skill-tag"><span class="skill-dot blue"></span>Startup Strategy</div>
+            <div class="skill-tag"><span class="skill-dot cyan"></span>Digital Branding</div>
+          </div>
+
+          <div class="glass-card about-quote reveal">
+            <div class="quote-mark">"</div>
+            <p>Technology isn't just a tool — it's the language of the future. My mission is to decode that language for everyone.</p>
+            <div class="quote-author">— Alex Kormako</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ NEWS / BLOG SECTION ═══════════ -->
+  <section id="blog" class="section section-alt">
+    <div class="container">
+      <div class="section-label reveal">Latest Articles</div>
+      <h2 class="section-title reveal">News & <span class="gradient-text">Insights</span></h2>
+
+      <!-- Search + Filter -->
+      <div class="blog-controls reveal">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Search articles..." />
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="ai">AI</button>
+          <button class="filter-btn" data-filter="technology">Technology</button>
+          <button class="filter-btn" data-filter="business">Business</button>
+          <button class="filter-btn" data-filter="startups">Startups</button>
+        </div>
+      </div>
+
+      <!-- Blog Cards -->
+      <div class="blog-grid" id="blogGrid">
+
+        <article class="blog-card glass-card reveal" data-category="ai">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&h=340&fit=crop" alt="Claude AI" loading="lazy" />
+            <span class="blog-cat ai">AI</span>
+          </div>
+          <div class="blog-body">
+            <h3>Claude 4 Redefines AI Reasoning With Breakthrough Architecture</h3>
+            <p>Anthropic's latest model sets new benchmarks across logic, coding, and creative tasks, blurring the line between human and machine intelligence.</p>
+            <div class="blog-meta">
+              <span class="blog-date">May 14, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card glass-card reveal" data-category="technology">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=340&fit=crop" alt="Tech hardware" loading="lazy" />
+            <span class="blog-cat technology">Technology</span>
+          </div>
+          <div class="blog-body">
+            <h3>Quantum Computing Hits 1,000-Qubit Milestone in 2026</h3>
+            <p>A Silicon Valley lab achieves a historic computing milestone that promises to upend encryption, drug discovery, and climate modeling.</p>
+            <div class="blog-meta">
+              <span class="blog-date">May 10, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card glass-card reveal" data-category="startups">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=340&fit=crop" alt="Startup office" loading="lazy" />
+            <span class="blog-cat startups">Startups</span>
+          </div>
+          <div class="blog-body">
+            <h3>10 AI Startups That Raised Over $100M This Quarter</h3>
+            <p>From autonomous agents to synthetic biology, venture capital is doubling down on the most ambitious AI bets of the decade.</p>
+            <div class="blog-meta">
+              <span class="blog-date">May 7, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card glass-card reveal" data-category="business">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=340&fit=crop" alt="Business charts" loading="lazy" />
+            <span class="blog-cat business">Business</span>
+          </div>
+          <div class="blog-body">
+            <h3>How Solopreneurs Are Building $1M Businesses With AI</h3>
+            <p>A new wave of one-person empires is rewriting the rules of entrepreneurship using automation, AI tools, and audience-first strategies.</p>
+            <div class="blog-meta">
+              <span class="blog-date">May 3, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card glass-card reveal" data-category="ai">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=340&fit=crop" alt="AI brain" loading="lazy" />
+            <span class="blog-cat ai">AI</span>
+          </div>
+          <div class="blog-body">
+            <h3>Multimodal AI Models Are Changing Creative Industries</h3>
+            <p>Design, music, film, and writing industries face a renaissance — and a reckoning — as AI tools become collaborators rather than competitors.</p>
+            <div class="blog-meta">
+              <span class="blog-date">Apr 28, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="blog-card glass-card reveal" data-category="technology">
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=340&fit=crop" alt="Space tech" loading="lazy" />
+            <span class="blog-cat technology">Technology</span>
+          </div>
+          <div class="blog-body">
+            <h3>SpaceX Starship Completes First Commercial Payload Mission</h3>
+            <p>The most powerful rocket ever flown successfully deploys a constellation of broadband satellites, marking a turning point for space commerce.</p>
+            <div class="blog-meta">
+              <span class="blog-date">Apr 21, 2026</span>
+              <a href="#" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ YOUTUBE SECTION ═══════════ -->
+  <section id="videos" class="section">
+    <div class="container">
+      <div class="section-label reveal">YouTube Channel</div>
+      <h2 class="section-title reveal"><span class="gradient-text">Watch &</span> Learn</h2>
+
+      <div class="youtube-layout">
+        <!-- Featured Video -->
+        <div class="featured-video reveal">
+          <div class="glass-card video-wrapper">
+            <div class="video-frame video-frame--short">
+              <iframe
+                src="https://www.youtube.com/embed/wauo6qveRPU?rel=0&modestbranding=1&loop=1&playlist=wauo6qveRPU"
+                title="Kormako — Featured Short"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+            <div class="video-info">
+              <span class="video-badge">🔴 Latest Short</span>
+              <h3>Check Out the Latest from Kormako</h3>
+              <p>Bite-sized tech, AI insights, and digital power — straight from the Kormako channel. Subscribe to stay ahead of the curve.</p>
+              <div class="video-stats">
+                <span>@Kormako-d7q</span>
+                <span>·</span>
+                <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600;">View Channel →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="youtube-sidebar">
+          <!-- Sub Counter -->
+          <div class="glass-card sub-counter reveal">
+            <div class="yt-icon">
+              <svg viewBox="0 0 24 24" fill="#FF0000" width="40"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+            <div class="sub-num"><span class="counter-anim" data-target="48700">0</span></div>
+            <p class="sub-label">YouTube Subscribers</p>
+            <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener" class="btn-primary btn-sm">Subscribe Now</a>
+          </div>
+
+          <!-- YT Stats -->
+          <div class="glass-card yt-stats reveal">
+            <div class="yt-stat"><span class="yt-stat-n">2.1M</span><span class="yt-stat-l">Total Views</span></div>
+            <div class="yt-stat"><span class="yt-stat-n">120</span><span class="yt-stat-l">Videos</span></div>
+            <div class="yt-stat"><span class="yt-stat-n">4.8★</span><span class="yt-stat-l">Avg Rating</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trending Videos Slider -->
+      <div class="trending-header reveal">
+        <h3>Trending Videos</h3>
+        <div class="slider-controls">
+          <button id="prevSlide" aria-label="Previous">←</button>
+          <button id="nextSlide" aria-label="Next">→</button>
+        </div>
+      </div>
+
+      <div class="video-slider reveal" id="videoSlider">
+        <a href="https://youtube.com/shorts/wauo6qveRPU" target="_blank" rel="noopener" class="video-slide glass-card">
+          <img src="https://i.ytimg.com/vi/wauo6qveRPU/hqdefault.jpg" alt="Kormako Short" loading="lazy" style="object-position:center top;" />
+          <div class="slide-info">
+            <h4>Latest Kormako Short ▶</h4>
+            <span>@Kormako-d7q</span>
+          </div>
+        </a>
+        <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener" class="video-slide glass-card">
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=225&fit=crop" alt="Code" loading="lazy" />
+          <div class="slide-info">
+            <h4>More Videos on the Channel →</h4>
+            <span>Subscribe for weekly drops</span>
+          </div>
+        </a>
+        <div class="video-slide glass-card">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=225&fit=crop" alt="Tech" loading="lazy" />
+          <div class="slide-info">
+            <h4>Prompt Engineering Masterclass for Beginners</h4>
+            <span>Coming soon</span>
+          </div>
+        </div>
+        <div class="video-slide glass-card">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=225&fit=crop" alt="Dev" loading="lazy" />
+          <div class="slide-info">
+            <h4>How I Grew My Channel to 40K in 6 Months</h4>
+            <span>Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTENT FEED SECTION ═══════════ -->
+  <section id="feed" class="section section-alt">
+    <div class="container">
+      <div class="section-label reveal">Daily Feed</div>
+      <h2 class="section-title reveal">Stay <span class="gradient-text">Updated</span></h2>
+
+      <div class="feed-grid">
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon ai-icon">🤖</div>
+          <h4>AI Digest</h4>
+          <p>Daily summaries of the most important AI papers, tools, and breakthroughs from labs worldwide.</p>
+          <div class="feed-tag">Updated Today</div>
+        </div>
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon startup-icon">🚀</div>
+          <h4>Startup Pulse</h4>
+          <p>Funding rounds, acquisitions, product launches, and founder interviews shaping the startup ecosystem.</p>
+          <div class="feed-tag">Updated Today</div>
+        </div>
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon tech-icon">⚡</div>
+          <h4>Tech Flash</h4>
+          <p>Breaking technology news, product releases, and hardware innovations — zero fluff, pure signal.</p>
+          <div class="feed-tag">Updated Today</div>
+        </div>
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon web-icon">🌐</div>
+          <h4>Web3 Watch</h4>
+          <p>Decentralized finance, blockchain developments, and the evolution of digital ownership.</p>
+          <div class="feed-tag">Updated Daily</div>
+        </div>
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon video-icon">🎬</div>
+          <h4>Creator Economy</h4>
+          <p>YouTube, podcasting, and content monetization strategies for independent creators.</p>
+          <div class="feed-tag">Weekly</div>
+        </div>
+        <div class="feed-card glass-card reveal">
+          <div class="feed-icon data-icon">📊</div>
+          <h4>Market Signals</h4>
+          <p>Tech stock movements, venture capital trends, and macroeconomic factors affecting digital businesses.</p>
+          <div class="feed-tag">Live</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PORTFOLIO SECTION ═══════════ -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="section-label reveal">My Work</div>
+      <h2 class="section-title reveal">Featured <span class="gradient-text">Projects</span></h2>
+
+      <div class="portfolio-grid">
+
+        <div class="portfolio-card glass-card reveal">
+          <div class="portfolio-img">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=420&fit=crop" alt="AI Dashboard" loading="lazy" />
+            <div class="portfolio-overlay">
+              <a href="#" class="port-link">View Project →</a>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="port-tags">
+              <span class="port-tag">AI</span>
+              <span class="port-tag">React</span>
+              <span class="port-tag">Python</span>
+            </div>
+            <h3>NeuralDash — AI Analytics Platform</h3>
+            <p>Real-time analytics dashboard powered by machine learning for business intelligence.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card glass-card reveal">
+          <div class="portfolio-img">
+            <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=700&h=420&fit=crop" alt="Mobile App" loading="lazy" />
+            <div class="portfolio-overlay">
+              <a href="#" class="port-link">View Project →</a>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="port-tags">
+              <span class="port-tag">Mobile</span>
+              <span class="port-tag">Flutter</span>
+              <span class="port-tag">Firebase</span>
+            </div>
+            <h3>Mindflow — Mental Wellness App</h3>
+            <p>AI-driven journaling and mood tracking app with 50K+ active users.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card glass-card reveal">
+          <div class="portfolio-img">
+            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=700&h=420&fit=crop" alt="Crypto platform" loading="lazy" />
+            <div class="portfolio-overlay">
+              <a href="#" class="port-link">View Project →</a>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="port-tags">
+              <span class="port-tag">Web3</span>
+              <span class="port-tag">Solidity</span>
+              <span class="port-tag">Next.js</span>
+            </div>
+            <h3>VaultChain — DeFi Portfolio Tracker</h3>
+            <p>Multi-chain portfolio management with automated yield optimization strategies.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card glass-card reveal">
+          <div class="portfolio-img">
+            <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?w=700&h=420&fit=crop" alt="SaaS" loading="lazy" />
+            <div class="portfolio-overlay">
+              <a href="#" class="port-link">View Project →</a>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <div class="port-tags">
+              <span class="port-tag">SaaS</span>
+              <span class="port-tag">Node.js</span>
+              <span class="port-tag">OpenAI</span>
+            </div>
+            <h3>Writerflow — AI Content Studio</h3>
+            <p>End-to-end content creation platform serving 200+ media companies globally.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ STATS SECTION ═══════════ -->
+  <section id="stats" class="section section-alt">
+    <div class="container">
+      <div class="stats-wrapper reveal">
+        <div class="stat-big">
+          <div class="stat-big-n counter-anim" data-target="48">0</div>
+          <div class="stat-big-suffix">K</div>
+          <div class="stat-big-l">Followers</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-big">
+          <div class="stat-big-n counter-anim" data-target="2100">0</div>
+          <div class="stat-big-suffix">K</div>
+          <div class="stat-big-l">Video Views</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-big">
+          <div class="stat-big-n counter-anim" data-target="85">0</div>
+          <div class="stat-big-suffix">+</div>
+          <div class="stat-big-l">Projects</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-big">
+          <div class="stat-big-n counter-anim" data-target="210">0</div>
+          <div class="stat-big-suffix">+</div>
+          <div class="stat-big-l">Articles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTACT SECTION ═══════════ -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-label reveal">Get In Touch</div>
+      <h2 class="section-title reveal">Let's <span class="gradient-text">Connect</span></h2>
+
+      <div class="contact-layout">
+        <!-- Contact Form -->
+        <div class="glass-card contact-form-wrap reveal">
+          <h3>Send a Message</h3>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="What's this about?" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Tell me more..."></textarea>
+          </div>
+          <button class="btn-primary btn-full" onclick="handleSubmit()">Send Message →</button>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info reveal">
+          <div class="glass-card contact-card">
+            <div class="contact-icon">📧</div>
+            <h4>Email</h4>
+            <a href="mailto:hello@kormako.com">hello@kormako.com</a>
+          </div>
+
+          <a href="https://wa.me/1234567890" target="_blank" rel="noopener" class="glass-card contact-card contact-cta whatsapp">
+            <div class="contact-icon">📱</div>
+            <h4>WhatsApp</h4>
+            <span>Chat on WhatsApp →</span>
+          </a>
+
+          <a href="https://t.me/kormako" target="_blank" rel="noopener" class="glass-card contact-card contact-cta telegram">
+            <div class="contact-icon">✈️</div>
+            <h4>Telegram</h4>
+            <span>Join on Telegram →</span>
+          </a>
+
+          <div class="glass-card contact-card">
+            <h4>Follow Kormako</h4>
+            <div class="contact-socials">
+              <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo">
+            <span class="logo-k">K</span><span class="logo-text">ormako</span>
+          </a>
+          <p>Future Ideas. Digital Power.</p>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Platform</h5>
+            <a href="#blog">Blog</a>
+            <a href="#videos">Videos</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#feed">Feed</a>
+          </div>
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="https://youtube.com/@Kormako-d7q" target="_blank" rel="noopener">YouTube</a>
+            <a href="#">Twitter / X</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+          </div>
+          <div class="footer-col">
+            <h5>Newsletter</h5>
+            <p class="footer-nl-desc">Get weekly AI & tech insights straight to your inbox.</p>
+            <div class="nl-form">
+              <input type="email" placeholder="your@email.com" />
+              <button class="nl-btn">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Kormako. All rights reserved. Built with 🔮 for the future.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop" aria-label="Back to top">↑</button>
+  </footer>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
