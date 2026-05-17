@@ -1,0 +1,573 @@
+/* ════════════════════════════════════════════
+   KORMAKO — script.js
+   All interactions, animations, and logic
+   ════════════════════════════════════════════ */
+
+'use strict';
+
+/* ── 1. LOADER ── */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => { loader.style.display = 'none'; }, 700);
+  }, 2000);
+});
+
+/* ── 2. CUSTOM CURSOR ── */
+const cursorDot  = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX  = 0, ringY  = 0;
+let rafCursor;
+
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursorDot.style.left = mouseX + 'px';
+  cursorDot.style.top  = mouseY + 'px';
+});
+
+function animateCursor() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top  = ringY + 'px';
+  rafCursor = requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover state for interactive elements
+document.querySelectorAll('a, button, .glass-card, .blog-card, .portfolio-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+});
+
+/* ── 3. NAVBAR SCROLL ── */
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+
+  // Glassmorphism on scroll
+  if (scrollTop > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+
+  // Back to top button
+  const btt = document.getElementById('backToTop');
+  if (scrollTop > 400) {
+    btt.classList.add('visible');
+  } else {
+    btt.classList.remove('visible');
+  }
+
+  // Active nav link
+  updateActiveLink();
+
+  lastScroll = scrollTop;
+}, { passive: true });
+
+/* ── 4. ACTIVE NAV LINK ── */
+function updateActiveLink() {
+  const sections = document.querySelectorAll('section[id], footer[id]');
+  const navLinks  = document.querySelectorAll('.nav-link');
+  let current = '';
+
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* ── 5. MOBILE NAVIGATION ── */
+const hamburger  = document.getElementById('hamburger');
+const mobileNav  = document.getElementById('mobileNav');
+const closeNav   = document.getElementById('closeNav');
+const mobLinks   = document.querySelectorAll('.mob-link');
+
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+closeNav.addEventListener('click', closeMobileNav);
+mobLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+/* ── 6. DARK / LIGHT THEME TOGGLE ── */
+const themeToggle = document.getElementById('themeToggle');
+const sunIcon     = document.getElementById('sunIcon');
+const moonIcon    = document.getElementById('moonIcon');
+
+let isLight = localStorage.getItem('kormako-theme') === 'light';
+
+function applyTheme() {
+  if (isLight) {
+    document.body.classList.add('light');
+    sunIcon.style.display  = 'none';
+    moonIcon.style.display = 'block';
+  } else {
+    document.body.classList.remove('light');
+    sunIcon.style.display  = 'block';
+    moonIcon.style.display = 'none';
+  }
+}
+
+applyTheme();
+
+themeToggle.addEventListener('click', () => {
+  isLight = !isLight;
+  localStorage.setItem('kormako-theme', isLight ? 'light' : 'dark');
+  applyTheme();
+});
+
+/* ── 7. SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ── 8. BACK TO TOP ── */
+document.getElementById('backToTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ── 9. SCROLL REVEAL ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  // Stagger delay for grid children
+  const parent = el.parentElement;
+  if (parent && (parent.classList.contains('blog-grid') || parent.classList.contains('feed-grid') || parent.classList.contains('portfolio-grid'))) {
+    const siblings = Array.from(parent.children);
+    const index = siblings.indexOf(el);
+    el.style.transitionDelay = (index * 0.08) + 's';
+  }
+  revealObserver.observe(el);
+});
+
+/* ── 10. ANIMATED COUNTERS ── */
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const duration = 2000;
+  const step = 16;
+  const steps = duration / step;
+  const increment = target / steps;
+  let current = 0;
+
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.round(current).toLocaleString();
+  }, step);
+}
+
+// Also handle .counter-anim elements
+const counterAnimObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterAnimObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter-anim').forEach(el => counterAnimObs.observe(el));
+
+/* ── 11. BLOG SEARCH & FILTER ── */
+const searchInput = document.getElementById('searchInput');
+const filterBtns  = document.querySelectorAll('.filter-btn');
+const blogCards   = document.querySelectorAll('.blog-card');
+
+let activeFilter = 'all';
+
+function filterBlog() {
+  const query = searchInput.value.toLowerCase().trim();
+
+  blogCards.forEach(card => {
+    const cat   = card.dataset.category || '';
+    const text  = card.textContent.toLowerCase();
+    const matchFilter = activeFilter === 'all' || cat === activeFilter;
+    const matchSearch = !query || text.includes(query);
+
+    if (matchFilter && matchSearch) {
+      card.style.display = '';
+      // Re-trigger reveal
+      setTimeout(() => card.classList.add('visible'), 50);
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+searchInput.addEventListener('input', filterBlog);
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    filterBlog();
+  });
+});
+
+/* ── 12. PARTICLE CANVAS ── */
+const canvas = document.getElementById('particleCanvas');
+const ctx    = canvas.getContext('2d');
+let particles = [];
+let animationId;
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas, { passive: true });
+
+class Particle {
+  constructor() { this.reset(); }
+
+  reset() {
+    this.x    = Math.random() * canvas.width;
+    this.y    = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    // Color: purple, blue, or cyan
+    const colors = ['139,92,246', '59,130,246', '6,182,212'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.life = 0;
+    this.maxLife = Math.random() * 300 + 200;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life++;
+
+    // Fade in / out
+    if (this.life < 60)       this.opacity = (this.life / 60) * 0.5;
+    if (this.life > this.maxLife - 60) this.opacity = ((this.maxLife - this.life) / 60) * 0.5;
+
+    // Wrap around
+    if (this.x < -5) this.x = canvas.width + 5;
+    if (this.x > canvas.width + 5) this.x = -5;
+    if (this.y < -5) this.y = canvas.height + 5;
+    if (this.y > canvas.height + 5) this.y = -5;
+
+    if (this.life > this.maxLife) this.reset();
+  }
+
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = `rgba(${this.color}, 1)`;
+    ctx.shadowBlur  = 8;
+    ctx.shadowColor = `rgba(${this.color}, 0.8)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+// Create particles
+const PARTICLE_COUNT = 90;
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  // Draw faint connection lines between close particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx   = particles[i].x - particles[j].x;
+      const dy   = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100) {
+        ctx.save();
+        ctx.globalAlpha = (1 - dist / 100) * 0.08;
+        ctx.strokeStyle = '#8B5CF6';
+        ctx.lineWidth   = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+  }
+
+  animationId = requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* ── 13. VIDEO SLIDER ── */
+const slider    = document.getElementById('videoSlider');
+const prevBtn   = document.getElementById('prevSlide');
+const nextBtn   = document.getElementById('nextSlide');
+let slideIndex  = 0;
+
+function getVisibleSlides() {
+  const w = window.innerWidth;
+  if (w <= 480) return 1;
+  if (w <= 768) return 2;
+  return 4;
+}
+
+function updateSlider() {
+  const visible = getVisibleSlides();
+  const slides  = slider.querySelectorAll('.video-slide');
+  const total   = slides.length;
+  const maxIndex = Math.max(0, total - visible);
+
+  slideIndex = Math.min(Math.max(slideIndex, 0), maxIndex);
+
+  // Simple transform-based sliding
+  const slideWidth = slider.offsetWidth / visible;
+  slider.style.transform = `translateX(-${slideIndex * (slideWidth + 20)}px)`;
+}
+
+// Wrap slider in overflow container
+const sliderWrapper = document.createElement('div');
+sliderWrapper.style.overflow = 'hidden';
+slider.parentNode.insertBefore(sliderWrapper, slider);
+sliderWrapper.appendChild(slider);
+slider.style.display = 'flex';
+slider.style.flexDirection = 'row';
+slider.style.flexWrap = 'nowrap';
+slider.style.gap = '20px';
+slider.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
+
+slider.querySelectorAll('.video-slide').forEach(slide => {
+  slide.style.flex = '0 0 calc(25% - 15px)';
+  slide.style.minWidth = '0';
+});
+
+prevBtn.addEventListener('click', () => { slideIndex--; updateSlider(); });
+nextBtn.addEventListener('click', () => { slideIndex++; updateSlider(); });
+window.addEventListener('resize', updateSlider, { passive: true });
+
+/* ── 14. CONTACT FORM SUBMIT ── */
+function handleSubmit() {
+  const name    = document.getElementById('name').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !message) {
+    showToast('Please fill in all required fields.', 'error');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showToast('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  // Simulate sending (replace with Firebase / EmailJS integration)
+  showToast('Message sent! We\'ll get back to you shortly.', 'success');
+
+  // Clear form
+  ['name', 'email', 'subject', 'message'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/* ── 15. TOAST NOTIFICATIONS ── */
+function showToast(message, type = 'success') {
+  // Remove existing toast
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: ${type === 'success' ? 'linear-gradient(135deg, #8B5CF6, #06B6D4)' : 'linear-gradient(135deg, #ef4444, #f97316)'};
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 99px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    white-space: nowrap;
+  `;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+    });
+  });
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+    setTimeout(() => toast.remove(), 400);
+  }, 3500);
+}
+
+/* ── 16. NEWSLETTER SUBMIT ── */
+document.querySelector('.nl-btn').addEventListener('click', () => {
+  const input = document.querySelector('.nl-form input');
+  const email = input.value.trim();
+  if (!email || !isValidEmail(email)) {
+    showToast('Please enter a valid email.', 'error');
+    return;
+  }
+  showToast('Thanks for subscribing to Kormako!', 'success');
+  input.value = '';
+});
+
+/* ── 17. HERO TITLE GLITCH EFFECT ── */
+const heroTitle = document.querySelector('.hero-title');
+if (heroTitle) {
+  let glitchTimer;
+  function triggerGlitch() {
+    heroTitle.style.filter = 'hue-rotate(30deg) saturate(2)';
+    setTimeout(() => { heroTitle.style.filter = ''; }, 100);
+    glitchTimer = setTimeout(triggerGlitch, Math.random() * 8000 + 4000);
+  }
+  setTimeout(triggerGlitch, 4000);
+}
+
+/* ── 18. SECTION BACKGROUND GLOW ── */
+// Add subtle interactive mouse glow on hero
+const hero = document.querySelector('.hero');
+if (hero) {
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    hero.style.setProperty('--mx', x + '%');
+    hero.style.setProperty('--my', y + '%');
+  });
+}
+
+/* ── 19. PORTFOLIO CARD TILT ── */
+document.querySelectorAll('.portfolio-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) translateZ(4px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+/* ── 20. FEED CARD STAGGER ON LOAD ── */
+document.querySelectorAll('.feed-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 0.06) + 's';
+});
+
+/* ── 21. STATS SECTION NEON GLOW ON INTERSECT ── */
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.textShadow = '0 0 40px rgba(139,92,246,0.6)';
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-big-n').forEach(n => statsObs.observe(n));
+
+/* ── 22. PAGE VISIBILITY — PAUSE PARTICLES WHEN HIDDEN ── */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    cancelAnimationFrame(animationId);
+  } else {
+    animateParticles();
+  }
+});
+
+/* ── 23. KEYBOARD ACCESSIBILITY ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+    closeMobileNav();
+  }
+});
+
+/* ── 24. LAZY IMAGE OBSERVER ── */
+if ('IntersectionObserver' in window) {
+  const imageObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        imageObs.unobserve(img);
+      }
+    });
+  }, { rootMargin: '200px' });
+
+  document.querySelectorAll('img[data-src]').forEach(img => imageObs.observe(img));
+}
+
+/* ── 25. INITIAL CALL ── */
+updateActiveLink();
+
+console.log('%c⚡ Kormako — Future Ideas. Digital Power.', 'font-size:1.2rem; font-weight:bold; background:linear-gradient(90deg,#8B5CF6,#06B6D4); -webkit-background-clip:text; color:transparent; padding:8px 0;');
